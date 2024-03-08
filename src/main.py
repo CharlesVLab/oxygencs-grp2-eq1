@@ -1,24 +1,28 @@
-from signalrcore.hub_connection_builder import HubConnectionBuilder
+"""Imports"""
+import os
 import logging
-import requests
 import json
 import time
+import requests
+from signalrcore.hub_connection_builder import HubConnectionBuilder
 
 
 class App:
+    """Class for server app"""
+
     def __init__(self):
         self._hub_connection = None
         self.TICKS = 10
 
         # To be configured by your team
-        self.HOST = None  # Setup your host here
-        self.TOKEN = None  # Setup your token here
-        self.T_MAX = None  # Setup your max temperature here
-        self.T_MIN = None  # Setup your min temperature here
-        self.DATABASE_URL = None  # Setup your database here
+        self.HOST = os.environ["HOST"] #"http://159.203.50.162"
+        self.TOKEN = os.environ["TOKEN"] #"fb5bdbf38ce5d1b4c43b"
+        self.T_MAX = os.environ["T_MAX"] 
+        self.T_MIN = os.environ["T_MIN"]
+        self.DATABASE_URL = None #os.environ["DB_URL"]
 
     def __del__(self):
-        if self._hub_connection != None:
+        if self._hub_connection is not None:
             self._hub_connection.stop()
 
     def start(self):
