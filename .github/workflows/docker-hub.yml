@@ -30,7 +30,7 @@ jobs:
         run: pipenv run python -m unittest test/test.py
 
       - name: Run lint
-        run: pipenv run python -m pylint ./src
+        run: pipenv run pylint ./src
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
