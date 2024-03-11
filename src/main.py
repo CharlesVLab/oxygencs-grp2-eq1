@@ -25,7 +25,7 @@ class App:
         # To be configured by your team
         self.HOST = os.environ["HOST"] #"http://159.203.50.162"
         self.TOKEN = os.environ["TOKEN"] #"fb5bdbf38ce5d1b4c43b"
-        self.T_MAX = os.environ["T_MAX"] #testtttt
+        self.T_MAX = os.environ["T_MAX"] #testttttt
         self.T_MIN = os.environ["T_MIN"]
         self.DATABASE_URL = f"postgresql://{self.PG_USER}:{self.PG_PASSWORD}@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DATABASE}" #os.environ["DB_URL"]
 
