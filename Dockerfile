@@ -22,8 +22,10 @@ COPY . .
 EXPOSE 8001
 
 # Install dependecies
+RUN pip install tomli --user
 RUN pip install pipenv --user
 RUN python -m pipenv install
+
 
 # Run the application.
 CMD python -m pipenv run start
