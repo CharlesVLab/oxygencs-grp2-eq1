@@ -1,1 +1,30 @@
-## To implement
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+    -   id: trailing-whitespace
+
+-   repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v2.10.3
+    hooks:
+    -   id: pylint
+
+-   repo: https://github.com/pre-commit/mirrors-black
+    rev: v21.9b0
+    hooks:
+    -   id: black
+        args: [--line-length=79, .]
+
+-   repo: https://github.com/pre-commit/mirrors-pytest
+    rev: v7.2.5
+    hooks:
+    -   id: pytest
+
+-   repo: local
+    hooks:
+    -   id: custom-tests
+        name: Run custom tests
+        entry: python -m pytest
+        language: system
+        pass_filenames: false
+        types: [python]
