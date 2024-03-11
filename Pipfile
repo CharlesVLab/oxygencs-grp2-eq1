@@ -8,6 +8,7 @@ requests = "*"
 signalrcore = "*"
 pylint = "*"
 tomli = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
