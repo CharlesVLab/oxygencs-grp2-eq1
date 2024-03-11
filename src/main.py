@@ -5,7 +5,7 @@ import json
 import time
 import requests
 from signalrcore.hub_connection_builder import HubConnectionBuilder
-
+import psycopg2
 
 class App:
     """Class for server app"""
@@ -13,13 +13,21 @@ class App:
     def __init__(self):
         self._hub_connection = None
         self.TICKS = 10
-
+        
+        self.actionType = "Normal"
+        
+        self.PG_USER = os.environ["PG_USER"]
+        self.PG_HOST = os.environ["PG_HOST"]
+        self.PG_DATABASE = os.environ["PG_DATABASE"]
+        self.PG_PASSWORD = os.environ["PG_PASSWORD"]
+        self.PG_PORT = os.environ["PG_PORT"]
+        
         # To be configured by your team
         self.HOST = os.environ["HOST"] #"http://159.203.50.162"
         self.TOKEN = os.environ["TOKEN"] #"fb5bdbf38ce5d1b4c43b"
         self.T_MAX = os.environ["T_MAX"] #testtttt
         self.T_MIN = os.environ["T_MIN"]
-        self.DATABASE_URL = None #os.environ["DB_URL"]
+        self.DATABASE_URL = f"postgresql://{self.PG_USER}:{self.PG_PASSWORD}@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DATABASE}" #os.environ["DB_URL"]
 
     def __del__(self):
         if self._hub_connection is not None:
@@ -71,8 +79,12 @@ class App:
         """Take action to HVAC depending on current temperature."""
         if float(temperature) >= float(self.T_MAX):
             self.send_action_to_hvac("TurnOnAc")
+            self.actionType = "AC"
+            print("AC TIME")
         elif float(temperature) <= float(self.T_MIN):
             self.send_action_to_hvac("TurnOnHeater")
+            self.actionType = "HEAT"
+            print("HEAT TIME")
 
     def send_action_to_hvac(self, action):
         """Send action query to the HVAC service."""
@@ -82,12 +94,27 @@ class App:
 
     def save_event_to_database(self, timestamp, temperature):
         """Save sensor data into database."""
+        connection = None
+        curs = None
         try:
             # To implement
+            connection = psycopg2.connect(self.DATABASE_URL)
+            curs = connection.cursor()
+            
+            query = "INSERT INTO public.\"HvacHistory\" (temperature, timestamp, climate_events) VALUES (%s, %s, %s)"
+            curs.execute(query, (temperature, timestamp, self.actionType))
+            
+            connection.commit()
+            print("Hvac info saved.")
             pass
         except requests.exceptions.RequestException as e:
             # To implement
             pass
+        finally:
+            if curs is not None:
+                curs.close()
+            if connection is not None:
+                connection.close()
 
 
 if __name__ == "__main__":
