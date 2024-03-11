@@ -22,7 +22,7 @@ class App:
         self.PG_PASSWORD = os.environ["PG_PASSWORD"]
         self.PG_PORT = os.environ["PG_PORT"]
 
-        # To be configured by your team
+        # To be configured by your team t
         self.HOST = os.environ["HOST"] #"http://159.203.50.162"
         self.TOKEN = os.environ["TOKEN"] #"fb5bdbf38ce5d1b4c43b"
         self.T_MAX = os.environ["T_MAX"] #testttttt
