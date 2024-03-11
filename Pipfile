@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 requests = "*"
 signalrcore = "*"
+pylint = "*"
 
 [dev-packages]
-pylint = "*"
 
 [requires]
 python_version = "3.8"
