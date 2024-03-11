@@ -17,5 +17,5 @@ python_version = "3.8"
 
 [scripts]
 start = "python src/main.py"
-test = "python test/test.py"
+test = "pytest ./test/test.py"
 lint = "python -m pylint ./src"
