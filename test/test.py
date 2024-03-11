@@ -6,18 +6,18 @@ from src.main import App
 
 class TestApp(unittest.TestCase):
     def setUp(self):
-        
+
         os.environ['PG_USER'] = 'user02eq1'
         os.environ['PG_HOST'] = '157.230.69.113'
         os.environ['PG_DATABASE'] = 'db02eq1'
         os.environ['PG_PASSWORD'] = '3EhMhvn5WRjYOw84'
         os.environ['PG_PORT'] = '5432'
-        
-        os.environ["HOST"] = "http://159.203.50.162" 
+
+        os.environ["HOST"] = "http://159.203.50.162"
         os.environ["TOKEN"] = "fb5bdbf38ce5d1b4c43b"
         os.environ["T_MAX"] = "30"
         os.environ["T_MIN"] = "25"
-        
+
         self.app = App()
 
     def test_save_event_to_database(self):

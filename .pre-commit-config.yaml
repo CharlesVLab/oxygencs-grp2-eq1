@@ -1,30 +1,22 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
     hooks:
-    -   id: trailing-whitespace
+      - id: trailing-whitespace
 
--   repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v2.10.3
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.1.0
     hooks:
-    -   id: pylint
+      - id: pylint
+        additional_dependencies: [tomli==1.2.2]
 
--   repo: https://github.com/pre-commit/mirrors-black
-    rev: v21.9b0
+  - repo: local
     hooks:
-    -   id: black
-        args: [--line-length=79, .]
-
--   repo: https://github.com/pre-commit/mirrors-pytest
-    rev: v7.2.5
-    hooks:
-    -   id: pytest
-
--   repo: local
-    hooks:
-    -   id: custom-tests
-        name: Run custom tests
-        entry: python -m pytest
+      - id: run unittests
+        name: Run Unittests
+        entry: python -m unittest discover
         language: system
         pass_filenames: false
+        always_run: true
         types: [python]
+

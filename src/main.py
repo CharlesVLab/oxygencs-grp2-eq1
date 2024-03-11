@@ -13,15 +13,15 @@ class App:
     def __init__(self):
         self._hub_connection = None
         self.TICKS = 10
-        
+
         self.actionType = "Normal"
-        
+
         self.PG_USER = os.environ["PG_USER"]
         self.PG_HOST = os.environ["PG_HOST"]
         self.PG_DATABASE = os.environ["PG_DATABASE"]
         self.PG_PASSWORD = os.environ["PG_PASSWORD"]
         self.PG_PORT = os.environ["PG_PORT"]
-        
+
         # To be configured by your team
         self.HOST = os.environ["HOST"] #"http://159.203.50.162"
         self.TOKEN = os.environ["TOKEN"] #"fb5bdbf38ce5d1b4c43b"
@@ -100,10 +100,10 @@ class App:
             # To implement
             connection = psycopg2.connect(self.DATABASE_URL)
             curs = connection.cursor()
-            
+
             query = "INSERT INTO public.\"HvacHistory\" (temperature, timestamp, climate_events) VALUES (%s, %s, %s)"
             curs.execute(query, (temperature, timestamp, self.actionType))
-            
+
             connection.commit()
             print("Hvac info saved.")
             pass
